@@ -45,8 +45,19 @@ function displayTemperature(response) {
   iconElement.setAttribute("alt", response.data.condition.icon);
 }
 
-let apiKey = "340oace2da8f791fb9ftba28730c8b16";
-let city = "Lima";
-let apiURL = `https://api.shecodes.io/weather/v1/current?query=${city}&key=340oace2da8f791fb9ftba28730c8b16&units=metric`;
+function search(city) {
+  let apiKey = "340oace2da8f791fb9ftba28730c8b16";
+  let apiURL = `https://api.shecodes.io/weather/v1/current?query=${city}&key=340oace2da8f791fb9ftba28730c8b16&units=metric`;
+  axios.get(apiURL).then(displayTemperature);
+}
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityInputElement = document.querySelector("#city-input");
+  search(cityInputElement.value);
+  console.log(cityInputElement.value);
+}
 
-axios.get(apiURL).then(displayTemperature);
+search("Katowice");
+
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
